@@ -1,0 +1,46 @@
+/**
+ * Đầu vào: 
+ * costMatrix[][] - Ma trận chi phí giữa các thành phố (N x N), với INF là giá trị đặc biệt cho không có chi phí.
+ *
+ * Đầu ra:
+ * Chi phí tối ưu của hành trình, là tổng chi phí ngắn nhất khi thăm tất cả các thành phố một lần và quay trở về điểm xuất phát.
+ */
+
+                    costMatrix[][] ← Ma trận chi phí giữa các thành phố (N x N)
+
+                    root ← newNode(costMatrix, [], 0, -1, 0)
+
+/** Bước 1: Giảm bớt hàng */
+
+                    rowReduction(reducedMatrix, row)   // Giảm bớt hàng
+
+/** Bước 2: Giảm bớt cột */
+
+                    columnReduction(reducedMatrix, col) // Giảm bớt cột
+
+/** Bước 3: Khởi tạo nút gốc */
+
+                    for j ← 0 đến N-1:
+                        if reducedMatrix[i][j] != INF:
+                            child ← newNode(reducedMatrix, path + (i, j), level + 1, i, j)
+                            child.cost ← parent.cost + reducedMatrix[i][j] + calculateCost(child.reducedMatrix)
+                            push(child) vào Priority Queue
+
+/** Bước 4: Tính toán chi phí giảm bớt */
+
+                    calculateCost(reducedMatrix) → Tính toán tổng chi phí của ma trận giảm bớt
+
+/** Bước 5: Lặp qua Priority Queue */
+
+                    while Priority Queue không rỗng:
+                        min ← pop từ Priority Queue
+
+                        nếu min.level = N-1:
+                            inPath(min.path)
+                            trả về min.cost
+
+                        cho j ← 0 đến N-1:
+                            nếu min.reducedMatrix[i][j] ≠ INF:
+                                child ← newNode(min.reducedMatrix, min.path, min.level + 1, i, j)
+                                child.cost ← min.cost + min.reducedMatrix[i][j] + calculateCost(child.reducedMatrix)
+                                push(child) vào Priority Queue
