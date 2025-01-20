@@ -1,3 +1,2 @@
 .vscode/
-image-1.png/
-image.png/
+**/*.png
